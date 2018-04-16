@@ -185,6 +185,50 @@ if a < b:
     print('a < b')
 elif a == b:
     print('a == b')
+elif a is b:
+    pass   #  пустой блок кода
 else:
     print('a > b')
+
+
+# Тернарный оператор
+if True:
+    username = 'Вася'
+else:
+    username = 'Петя'
+       # тоже самое:
+username = 'Вася' if True else 'Петя'
+
+
+
+
+# Циклы
+i = 10
+while i:  # станет 0
+    print(i)
+    i -= 1
+
+
+i = 0
+while True: # while 1:
+    if i % 2:
+        print(i)
+
+    if i == 10:
+        break  # завершение мгновенное
+    i += 1
+
+i = 1
+while 1:  # while 1:
+    if i % 2:
+        continue # пропускает одну итерацию
+
+    print(i)
+    if i == 10:
+        break  # завершение мгновенное
+    i += 1
+
+
+
+
 
