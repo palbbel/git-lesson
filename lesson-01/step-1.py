@@ -220,6 +220,7 @@ while True: # while 1:
 
 i = 1
 while 1:  # while 1:
+    i += 1
     if i % 2:
         continue # пропускает одну итерацию
 
@@ -230,5 +231,87 @@ while 1:  # while 1:
 
 
 
+for i in range(8,20,2):
+    print('Элемент списка', i)
 
+
+
+for i in enumerate(range(8,20,2)):  # пронумеровывает последовательность
+    print('Элемент списка', i)
+
+for key, value in enumerate(range(8,20,2)):  # пронумеровывает последовательность
+    print(key, value)
+
+a = (1, 2, 3)
+b = (4, 5, 6)
+a, b = b, a
+print(a)
+print(b)
+####################
+
+for i in d1:
+    print(i)
+
+for i in d1.items():
+    print(i)
+
+for key, value in d1.items():
+    print(key, value)
+
+
+
+
+# Срезы
+s = 'Hello Python'
+print(s[3:7])
+print(s[:7])
+print(s[7:])
+print(s[::2])
+print(s[::-1])
+print(s[::-2])
+print(s[-1:])
+print(s[-7:-1])
+print(s[-7:-1:1])
+
+# Списки
+l = [1, 2, 3, 4]
+l1 = list(range(10))
+print(l1)
+print(l[::-1])
+
+l2 = l1[::]
+print(l1 == l2)
+print(l1 is l2)
+print(l1[::2])
+
+
+"""
+Функции и методы списков
+len(l) - длина списка l
+l.append(e)      - добавить элемент в конец
+l.insert(index, e) - добавить в указанную позицию
+
+"""
+
+lst = list(range(10))
+print('Длина списка :', len(lst))
+lst.append(10)
+lst.insert(0, -1)
+lst.insert(1000, -1)
+
+# неправильно
+s = ''
+for c in range(ord('a'), ord('z') + 1):
+    s += chr(c)
+print(c)
+
+# правильно
+s = []
+for c in range(ord('a'), ord('z') + 1):
+    s.append(chr(c))
+print(''.join(s))
+print(', '.join(s))
+
+
+# Методы строк - дома
 
