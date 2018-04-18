@@ -137,3 +137,70 @@ def demo5(i, *args, j=1, **kwargs):  # во втором питоне будет
     print(i, j, args, kwargs)
 
 demo5(2, 5, 5, j=4)
+demo5(2, 5, 5, j=4, d={})
+
+
+# Переменное количество переменных при вызове функции
+def f4(i, j, k, a=None, b=None, c=None):
+    print(i, j, k)
+    print(a, b, c)
+
+args = [1, 2, 3]
+kwargs = {
+    'a': 10,
+    'b': 20,
+    'c': 30
+    }
+
+f4(*args, **kwargs)
+
+
+
+# Анонимная функция
+sqrt = lambda x: x ** 0.5
+# lambda: pass
+# lambda x, y: pass
+print(sqrt(9))
+
+def f5(x, cb):
+    return cb(x)
+
+print(f5(25, sqrt))
+print(f5(25, lambda x: x ** 0.5))
+
+"""
+
+"""
+
+
+# Замыкание - в одной функции описываем другую функцию
+def trim():
+    # область видимости локальная фукции trim
+    # Замкнутая облась - живет пока существует spaces_trim
+    def f():
+        # область видимости локальная фукции f
+        pass
+    return f
+
+spaces_trim = trim()
+print(spaces_trim)
+
+# Функция каррирования ()частичная
+def trim2(chars=None):
+    # область видимости локальная фукции trim
+    # Замкнутая облась - живет пока существует spaces_trim
+    def f22(s):
+        # область видимости локальная фукции f
+        return s.strip(chars)
+    return f22
+
+spaces_trim2 = trim2()
+slashes_trim2 = trim2('/\\')
+
+print(spaces_trim2('    Hello        '))
+print(slashes_trim2('////url//\\\\//'))
+
+
+
+
+
