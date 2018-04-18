@@ -202,5 +202,12 @@ print(slashes_trim2('////url//\\\\//'))
 
 
 
+# Рекурсивная функция (функция вызывает саму себя)
+# 5! = 1 * 2 * 3 * 4 * 5
+def factorial(x):
+    return 1 if x == 0 else x * factorial(x - 1)
+
+print(factorial(5))
+
 
 
