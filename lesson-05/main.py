@@ -23,6 +23,8 @@ os.path.basename('/home/itmo/1.txt')
 
 print(calculate_rectangle_area(7, 8))
 
+###### nuitka
+
 
 if __name__== '__main__':
     print('Будет работать только если модуль используется как исполняемый (главный)')
