@@ -84,7 +84,7 @@ def decode(text, rot=0):
 
 
 encode('z',27)
-encode('Hello, Python3!',1)
+encode('Hello, Python3!',26000000000)
 #encode('Hello, Python3!',30)
 encode("Gur pyrnare naq avpre gur cebtenz, gur snfgre vg'f tbvat gb eha. Naq vs vg qbrfa'g, vg'yy or rnfl gb znxr vg snfg.", 13)
 encode('There is no programming language, no matter how structured, that will prevent programmers from making bad programs.', 25)
