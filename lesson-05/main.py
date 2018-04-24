@@ -1,35 +1,19 @@
-# Модули и пакеты
+# Пакеты
+import mega_math.square_shapes
+mega_math.square_shapes.calculate_square_area(2)
 
-# 1. Импорт модуля целиком
+from mega_math import square_shapes
+square_shapes.calculate_cicle_area(10)
 
-import os.path
-import square_shapes
-
-
-# 2. Чаcтичный импорт
-
-from square_shapes import (calculate_cicle_area, calculate_square_area,
-                           calculate_rectangle_area, calculate_triangle_area)
-from os import path as Path
+from mega_math.square_shapes import calculate_triangle_area
+calculate_triangle_area(1, 2, 3)
 
 
-# 3. Импорт * (все имена из модуля)
-from square_shapes import *
-
-print(square_shapes.calculate_square_area((5)))
-print(square_shapes.calculate_rectangle_area(2, 4))
-
-os.path.basename('/home/itmo/1.txt')
-
-print(calculate_rectangle_area(7, 8))
-
-###### nuitka
+# Относительный импорт (только в модуле, не ав исполняемом файле)
+# from . import module_name
+# from .module_name import class_name
+# from ..parent_module import class_name
 
 
-if __name__== '__main__':
-    print('Будет работать только если модуль используется как исполняемый (главный)')
-
-
-
-
-
+from mega_math import calculate_cicle_area
+print(calculate_cicle_area(10))
