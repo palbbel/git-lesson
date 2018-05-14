@@ -1,7 +1,7 @@
 # Декораторы
 
 from datetime import datetime
-from functools import reduce, wraps
+from functools import reduce, wraps, lru_cache
 import pickle
 import time
 
@@ -21,7 +21,7 @@ def benchmark(func): # функция декоратор всегда прини
 
     return wrapper #возвращает возвращает
 
-
+# аналог lru_cache
 def cache(func):
     memory = {}   # хранение в кеше
 
@@ -49,3 +49,62 @@ def factorial(n):
 
 print(factorial(5))
 print(factorial(5))
+
+
+# todo: Декоратор с параметрами
+"""
+=====схема======
+def decorator_parameters(param1,...paramN)
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            do something
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+"""
+
+def log(filename):  #декоратор пишет логи работы функции
+    template = '''
+[{now:%Y-%m-%d %H:%M:%S}]  function: *{func}* called with
+    -> positional argument: {args}
+    -> keyword argument: {kwargs}
+Returns: {resault}
+'''
+    def decorator(func):
+        def wrapper(*args, **kwargs):  # функция обертка из нее возращаем результат работы оригинальной функции
+            resault = func(*args, **kwargs)
+
+            with open(filename, 'a') as f:
+                f.write(template.format(now=datetime.now(),
+                                        func='.'.join((func.__module__, func.__name__)),
+                                        args=args,
+                                        kwargs=kwargs,
+                                        resault=resault))
+
+
+            return resault
+        return wrapper
+    return decorator
+
+
+@log('log.txt')
+def tst_func(a, b):
+    return a + b
+
+
+
+tst_func(2, 2)
+tst_func(8, 10)
+tst_func(5, 8)
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+
+[2018-05-14 21:02:32]  function: *__main__.tst_func* called with
+    -> positional argument: (2, 2)
+    -> keyword argument: {}
+Returns: 4
+
+[2018-05-14 21:02:32]  function: *__main__.tst_func* called with
+    -> positional argument: (8, 10)
+    -> keyword argument: {}
+Returns: 18
+
+[2018-05-14 21:02:32]  function: *__main__.tst_func* called with
+    -> positional argument: (5, 8)
+    -> keyword argument: {}
+Returns: 13
