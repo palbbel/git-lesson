@@ -81,7 +81,7 @@ def map_hex(val):
 
 dec2bin(250)
 dec2oct(755)
-dec2hex(755)
+dec2hex(751)
 
 bin2dec('1010011010')
 oct2dec('755')

@@ -216,3 +216,7 @@ print(factorial(5))
 #
 #def b():
 #    a()
+
+
+k = 1
+print('ewewqe %i wefwef' %(1))
