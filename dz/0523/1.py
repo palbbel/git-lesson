@@ -33,6 +33,7 @@ class ParamHandler(metaclass=ABCMeta):
 
         cls.types[name] = klass
 
+
     @classmethod
     def get_instance(cls, source, *args, **kwargs):
         _, ext = Path.splitext(str(source).lower())
