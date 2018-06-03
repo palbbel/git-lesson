@@ -1,7 +1,14 @@
 from datetime import datetime
-from pony.orm import Database, Required, Optional, Set, PrimaryKey
+from pony.orm import Database, Required, Optional, Set, PrimaryKey, sql_debug, show, db_session
 
-db = Database()
+
+#db = Database() # тоже закоментим
+# Добавили взамен: 2 строчки
+from . import pony
+
+db = pony.db
+
+
 
 class Product(db.Entity):
     """Товар"""
@@ -13,8 +20,8 @@ class Product(db.Entity):
     #alt_categories = Set(list('Category'))
     amount = int # количество товара
     history = Set('ProductHistory')
-    cartitem = Set('CartItem')
-    orderitem = Set('OrderItem')
+    cartitems = Set('CartItem')
+    orderitems = Set('OrderItem')
 
 class ProductHistory(db.Entity):
     """История конкреного товара"""
@@ -26,34 +33,34 @@ class ProductHistory(db.Entity):
 class Category(db.Entity):
     """Категория товара"""
     title = Required(str)
-    parent = Required('Category')
-    products = Set(Product)
-    categorys = Set('Category')
+    parent = Optional('Category', reverse='children')
+    products = Set('Product')
+    children = Set('Category', reverse='parent')
 
 
 class Customer(db.Entity):
     """Покупатель"""
-    email = Required(str)
-    phone = Required(str)
-    name = Required(str)
+    email = Required(str, unique=True)
+    phone = Optional(str)
+    name = Optional(str)
     address = Set('Address')
-    cart = Set('Cart')
-    order = Set('Order')
+    cart = Optional('Cart')
+    orders = Set('Order')
 
 
 class Address(db.Entity):
     """Адрес"""
-    customer = Required('Customer')
+    customers = Set('Customer')
     country = Required(str)
     city = Required(str)
     street = Required(str)
     zip_code = Required(str)
-    house = Required(int)
+    house = Required(str)
 
 
 class Cart(db.Entity):
     """Корзина с товарами"""
-    customer = Required('Customer') or None
+    customer = Optional('Customer') or None
     products = Set('CartItem')
     #cart = Set('CartItem')        # ?    #########
     #cartitem = Set('CartItem')     # ?   #######
@@ -63,12 +70,12 @@ class CartItem(db.Entity):
     """Элемент корзины"""
     cart = Required('Cart')
     product = Required('Product')
-    amount = Required(int) # 1 единица товара
+    amount = Optional(int, default=1) # 1 единица товара
 
 class Order(db.Entity):
     """Заказ"""
     customer = Required('Customer')
-    created = Required(datetime, default=datetime.now)
+    created = Optional(datetime, default=datetime.now)
     products = Set('OrderItem')  ## ?    ##########
     status = Required('Status')
     cost = Required(float)
@@ -76,25 +83,29 @@ class Order(db.Entity):
 
 class Status(db.Entity):
     """Любой статус"""
-    name = Required(str)
-    order = Set('Order')
+    name = PrimaryKey(str)
+    title = Required(str)
+    orders = Set('Order')
 
 
 class OrderItem(db.Entity):
     """Товар (одна позиция) в заказе"""
     order = Required('Order')
     product = Required('Product')
-    amount = Required(int) # 1 единица товара
+    amount = Optional(int, default=1) # 1 единица товара
 
 
-class Menu(db.Entity):
-    """Меню"""
-    pass
-
-
-
-
-
-db.bind(provider='sqlite', filename='database.sqlite', create_db=True)
-db.generate_mapping(create_tables=True)
-
+# sql_debug(True)
+#
+# db.bind(provider='sqlite', filename='database.sqlite', create_db=True)
+# db.generate_mapping(create_tables=True) #, check_tables=True)
+#
+#
+# with db_session:
+#     cat_pc = Category(title='ПК')
+#     show(cat_pc)
+#
+#     cat_complect = Category(parent=cat_pc,
+#                             title='Комплектующие')
+#
+# show(cat_complect)
